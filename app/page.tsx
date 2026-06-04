@@ -1,7 +1,40 @@
 import Image from "next/image";
+import { auth, signIn, signOut } from "@/auth";
 
-export default function Home(){
-  return <main>Salam</main>;
+export default async function Home(){
+  const session = await auth();
+  if(!session?.user){
+    return ( 
+      <main className="p-8">
+        <h1 className="text-2x1">Scholar Lecture</h1>
+        <form
+          action={async () => {
+            "use server";
+            await signIn("google", { redirectTo: "/"});
+          }}
+        >
+          <button type="submit" className="boarder px-4 py-2 mt-4">
+            Sign in with Google
+          </button>
+        </form>
+      </main>
+    );
+  }
+  return (
+    <main className="p-8">
+      <h1 className="text-2x1">Salam, {session.user.name}</h1>
+      <form
+        action={async () => {
+          "use server";
+          await signOut({ redirectTo: "/"});
+        }}
+      >
+        <button type="submit" className="border px-4 py-2 mt-4">
+          Sign out
+        </button>
+        </form>
+    </main>
+  )
 }
 
 // export default function Home() {
