@@ -27,7 +27,7 @@ model Scholar{
   id String @id @default(cuid())
   name String
   bio String?
-  youtubeChannelID String @unique
+  youtubeChannelId String @unique
   createdAt DateTime @default(now())
 }
 
