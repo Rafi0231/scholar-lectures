@@ -47,14 +47,12 @@ export default async function ScholarPage({
               className="flex-shrink-0"
             />
             <div>
-                <a
-                href={`https://www.youtube.com/watch?v=${video.videoId}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium underline"
-            >
-                {video.title}
-            </a>
+                <Link
+                    href={`/scholars/${scholar.id}/lectures/${video.videoId}`}
+                    className="font-medium underline"
+                >
+                    {video.title}
+                </Link>
               <div className="text-sm text-gray-500 mt-1">
                 {new Date(video.publishedAt).toLocaleDateString()}
               </div>
