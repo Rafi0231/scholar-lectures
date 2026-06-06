@@ -1,5 +1,6 @@
 import { auth, signIn, signOut } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import Link from "next/link";
 
 export default async function Home() {
   const session = await auth();
@@ -33,9 +34,14 @@ export default async function Home() {
       <h2 className="text-xl mt-8">Scholars</h2>
       <ul className="mt-4 space-y-3">
         {scholars.map((scholar) => (
-          <li key={scholar.id} className="border p-3">
-            <div className="font-medium">{scholar.name}</div>
-            <div className="text-sm text-gray-600">{scholar.bio}</div>
+          <li key={scholar.id}>
+            <Link
+              href={`/scholars/${scholar.id}`}
+              className="block border p-3 hover:bg-gray-900"
+            >
+              <div className="font-medium">{scholar.name}</div>
+              <div className="text-sm text-gray-600">{scholar.bio}</div>
+            </Link>
           </li>
         ))}
       </ul>

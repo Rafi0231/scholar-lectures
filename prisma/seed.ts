@@ -13,12 +13,12 @@ async function main() {
       {
         name: "Omar Suleiman",
         bio: "Founder of Yaqeen Institute, focused on contemporary issues and Islamic ethics.",
-        youtubeChannelId: "UCfQ-2-_77FtuRko1WdRiUjQ",
+        youtubeChannelId: "UC3vHW2h22WE-pNi5WJtRIjg",
       },
       {
         name: "Nouman Ali Khan",
         bio: "Founder of Bayyinah Institute, focused on Quranic Arabic and tafsir.",
-        youtubeChannelId: "UCkBLeITz3KZWFC7Mj0686YA",
+        youtubeChannelId: "UCRtiU-lpcBSi-ipFKyfIkug",
       },
     ],
     skipDuplicates: true,
