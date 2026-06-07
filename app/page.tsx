@@ -30,6 +30,9 @@ export default async function Home() {
   return (
     <main className="p-8">
       <h1 className="text-2xl">Salam, {session.user.name}</h1>
+      <Link href="/saved" className="text-sm underline mt-2 inline-block">
+      View saved Lectures
+      </Link>
 
       <h2 className="text-xl mt-8">Scholars</h2>
       <ul className="mt-4 space-y-3">

@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { getRecentVideosForChannel } from "@/lib/youtube";
 import { redirect, notFound } from "next/navigation";
+import { saveLecture } from "./actions";
 import Link from "next/link";
 
 export default async function ScholarPage({
@@ -25,6 +26,20 @@ export default async function ScholarPage({
   }
 
   const videos = await getRecentVideosForChannel(scholar.youtubeChannelId);
+  const user = await prisma.user.findUnique({
+    where: { email: session.user.email! },
+  });
+  const savedIds = new Set(
+    user
+        ? (
+            await prisma.savedLecture.findMany({
+                where: { userId: user.id },
+                select: { videoId: true},
+            })
+        ).map((s) => s.videoId)
+        : []
+  );
+  
 
   return (
     <main className="p-8">
@@ -47,18 +62,33 @@ export default async function ScholarPage({
               className="flex-shrink-0"
             />
             <div>
-                <Link
-                    href={`/scholars/${scholar.id}/lectures/${video.videoId}`}
-                    className="font-medium underline"
-                >
-                    {video.title}
-                </Link>
+            <Link
+                href={`/scholars/${scholar.id}/lectures/${video.videoId}`}
+                className="font-medium underline"
+              >
+                {video.title}
+              </Link>
               <div className="text-sm text-gray-500 mt-1">
                 {new Date(video.publishedAt).toLocaleDateString()}
               </div>
               <div className="text-sm text-gray-600 mt-1 line-clamp-2">
                 {video.description}
               </div>
+              <form action={saveLecture} className="mt-2">
+                <input type="hidden" name="scholarId" value={scholar.id} />
+                <input type="hidden" name="videoId" value={video.videoId} />
+                <input type="hidden" name="videoTitle" value={video.title} />
+                <input type="hidden" name="videoThumb" value={video.thumbnailUrl} />
+                <input type="hidden" name="channelId" value={scholar.youtubeChannelId} />
+                <input type="hidden" name="channelName" value={scholar.name} />
+                <button
+                  type="submit"
+                  disabled={savedIds.has(video.videoId)}
+                  className="text-sm border px-2 py-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {savedIds.has(video.videoId) ? "Saved" : "Save"}
+                </button>
+              </form>
             </div>
           </li>
         ))}

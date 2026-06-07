@@ -21,6 +21,7 @@ model User {
   createdAt DateTime @default(now())
   accounts Account[]
   sessions Session[]
+  savedLectures SavedLecture[]
 }
 
 model Scholar{
@@ -28,7 +29,9 @@ model Scholar{
   name String
   bio String?
   youtubeChannelId String @unique
+  videosEmbeddable Boolean @default(true)
   createdAt DateTime @default(now())
+  savedLectures SavedLecture[]
 }
 
 model Account{
@@ -62,4 +65,21 @@ model VerificationToken{
   expires DateTime
 
   @@unique([identifier, token])
+}
+
+model SavedLecture {
+  id String @id @default(cuid())
+  userId String
+  scholarId String 
+  videoId String  //YouTube vid id
+  videoTitle String //Snap at saved time 
+  videoThumb String //Snap at saved time
+  channelId String  //Scholar channel 
+  channelName String  //Snap of scholar name 
+  savedAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  scholar Scholar @relation(fields: [scholarId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, videoId]) //A user can only save a given video once
 }

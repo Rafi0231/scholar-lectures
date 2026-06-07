@@ -9,6 +9,7 @@ async function main() {
         name: "MEC Morton Grove",
         bio: "Muslim Education Center in Morton Grove, Illinois. Friday khutbas amd lectures from resident and visiting scholars.",
         youtubeChannelId: "UCzFLx26wWIJJo8HKTq7pWMw",
+        videosEmbeddable: false,
       },
       {
         name: "Omar Suleiman",
