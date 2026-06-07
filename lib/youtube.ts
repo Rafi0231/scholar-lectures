@@ -10,7 +10,7 @@ export type YouTubeVideo = {
 
 export async function getRecentVideosForChannel (
     channelId: string,
-    maxResults: number = 6
+    maxResults: number = 20
 ): Promise<YouTubeVideo[]> {
     const apiKey = process.env.YOUTUBE_API_KEY;
     if(!apiKey){

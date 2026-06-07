@@ -25,7 +25,7 @@ export default async function ScholarPage({
     notFound();
   }
 
-  const videos = await getRecentVideosForChannel(scholar.youtubeChannelId);
+  const videos = await getRecentVideosForChannel(scholar.youtubeChannelId, 20);
   const user = await prisma.user.findUnique({
     where: { email: session.user.email! },
   });
