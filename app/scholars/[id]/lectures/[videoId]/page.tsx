@@ -23,56 +23,56 @@ export default async function LecturePage({
     notFound();
   }
 
-return (
-  <main className="p-8">
-    <Link
-      href={`/scholars/${id}`}
-      className="text-sm text-gray-500 underline"
-    >
-      ← Back to {scholar.name}
-    </Link>
+  return (
+    <main className="min-h-screen px-12 py-14 max-w-5xl mx-auto">
+      <Link
+        href={`/scholars/${id}`}
+        className="font-label text-xs text-tan/70 uppercase tracking-[0.25em] font-medium hover:text-tan transition-colors duration-300"
+      >
+        ← Back to {scholar.name}
+      </Link>
 
-    {scholar.videosEmbeddable ? (
-      <>
-        <div className="mt-4 aspect-video w-full max-w-3xl">
-          <iframe
-            src={`https://www.youtube.com/embed/${videoId}`}
-            title="Lecture video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-            className="w-full h-full"
-          />
+      {scholar.videosEmbeddable ? (
+        <div className="mt-12">
+          <div className="aspect-video w-full rounded-xl overflow-hidden shadow-2xl">
+            <iframe
+              src={`https://www.youtube.com/embed/${videoId}`}
+              title="Lecture video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              className="w-full h-full"
+            />
+          </div>
+
+          <div className="mt-6 flex items-center justify-between">
+            <p className="font-display text-base text-cream/75">
+              Lecture from {scholar.name}
+            </p>
+            <a
+              href={`https://www.youtube.com/watch?v=${videoId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-label text-xs text-tan uppercase tracking-[0.18em] font-semibold hover:text-cream transition-colors duration-300"
+            >
+              Watch on YouTube ↗
+            </a>
+          </div>
         </div>
-
-        <div className="mt-4 max-w-3xl flex items-center justify-between">
-          <p className="text-sm text-gray-500">
-            Lecture from {scholar.name}
+      ) : (
+        <div className="mt-12 bg-cream rounded-xl px-10 py-12 max-w-2xl mx-auto text-center shadow-2xl">
+          <p className="font-display text-lg text-plum leading-relaxed">
+            {scholar.name} hosts their lectures on YouTube directly.
           </p>
             <a
             href={`https://www.youtube.com/watch?v=${videoId}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm underline"
+            className="inline-block mt-7 bg-plum text-cream font-label text-xs font-semibold uppercase tracking-[0.18em] px-7 py-3 rounded-lg hover:bg-mauve transition-colors duration-300"
           >
             Watch on YouTube ↗
           </a>
         </div>
-      </>
-    ) : (
-      <div className="mt-4 max-w-3xl border p-6">
-        <p className="text-sm text-gray-500 mb-3">
-          {scholar.name} hosts their lectures on YouTube directly.
-        </p>
-        <a
-          href={`https://www.youtube.com/watch?v=${videoId}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block border px-4 py-2 font-medium hover:bg-gray-900"
-        >
-          Watch on YouTube ↗
-        </a>
-      </div>
-    )}
-  </main>
-);
+      )}
+    </main>
+  );
 }

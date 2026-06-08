@@ -74,6 +74,7 @@ model SavedLecture {
   videoId String  //YouTube vid id
   videoTitle String //Snap at saved time 
   videoThumb String //Snap at saved time
+  videoDuration String?
   channelId String  //Scholar channel 
   channelName String  //Snap of scholar name 
   savedAt DateTime @default(now())
